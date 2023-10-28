@@ -1,11 +1,15 @@
 package com.olisaude.olisaude.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -20,7 +24,17 @@ public class Cliente {
     private String nome;
     private Date nascimento;
     private String sexo;
-    private Problema problema;
+
+    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Problema> problemas;
+
+    public List<Problema> getProblemas() {
+        return problemas;
+    }
+    public void setProblemas(List<Problema> problemas) {
+        this.problemas = problemas;
+    }
+    
     private Date data_criacao;
     private Date data_atualizacao;
 
@@ -43,11 +57,6 @@ public class Cliente {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    public Problema getProblema() {
-        return problema;
-    }
-    public void setProblema(Problema problema) {
-        this.problema = problema;
     }
     public Date getData_criacao() {
         return data_criacao;

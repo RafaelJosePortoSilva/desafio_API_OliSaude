@@ -1,5 +1,11 @@
 package com.olisaude.olisaude.services;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Service;
 
 import com.olisaude.olisaude.entity.Cliente;
@@ -14,21 +20,40 @@ public class ClienteServices {
         this.clienteRepository = clienteRepository;
     }
 
-    public Cliente create(Cliente cliente){
-        Cliente savedCliente = clienteRepository.save(cliente);
-        return savedCliente;
+
+    public List<Cliente> list(){
+        
+        List<Cliente> clientes = clienteRepository.findAll();
+
+        for(Cliente cliente : clientes){
+            int somaDosGraus = cliente.getProblemas()
+                .stream()
+                .mapToInt(Problema.getGrau)
+                .sum();
+            cliente.setSomaDosGraus(somaDosGraus);
+
+        }
+
+        return clientes.stream()
+            .sorted(Comparator.comparingInt(cliente -> -cliente.getSomaDosGraus()))
+            .limit(10)
+            .collect(Collectors.toList());
+        
     }
 
-    public Cliente update(Cliente cliente){
-        Cliente savedCliente = clienteRepository.save(cliente);
-        return savedCliente;
+
+    public List<Cliente> create(Cliente cliente){
+        clienteRepository.save(cliente);
+        return list();
     }
 
-    public void delete(Long id){
+    public List<Cliente> update(Cliente cliente){
+        clienteRepository.save(cliente);
+        return list();
+    }
+
+    public List<Cliente> delete(Long id){
         clienteRepository.deleteById(id);
+        return list();
     }
-
-    
-
-
 }
