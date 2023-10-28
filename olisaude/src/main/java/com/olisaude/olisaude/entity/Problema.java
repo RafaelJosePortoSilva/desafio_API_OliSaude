@@ -1,5 +1,7 @@
 package com.olisaude.olisaude.entity;
 
+import java.util.function.ToIntFunction;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -8,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 
 public class Problema {
     
+    public static ToIntFunction<? super Problema> getGrau;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.S
 import org.springframework.stereotype.Service;
 
 import com.olisaude.olisaude.entity.Cliente;
+import com.olisaude.olisaude.entity.Problema;
 import com.olisaude.olisaude.repository.ClienteRepository;
 
 @Service

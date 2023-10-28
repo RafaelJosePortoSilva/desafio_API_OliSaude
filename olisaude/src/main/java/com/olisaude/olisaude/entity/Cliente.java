@@ -57,7 +57,7 @@ public class Cliente {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    }
+    
     public Date getData_criacao() {
         return data_criacao;
     }
@@ -69,6 +69,11 @@ public class Cliente {
     }
     public void setData_atualizacao(Date data_atualizacao) {
         this.data_atualizacao = data_atualizacao;
+    }
+    public void setSomaDosGraus(int somaDosGraus) {
+    }
+    public int getSomaDosGraus() {
+        return 0;
     }
 
 }
